@@ -1,0 +1,34 @@
+{
+	"name": "staccato/listable-bundle",
+	"description": "Symfony integrtion bundle for staccato component",
+	"type": "symfony-bundle",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Krystian Karaś",
+			"email": "dev@karashome.pl"
+		}
+	],
+	"require": {
+		"php": ">=7.1",
+		"staccato/listable": "1.0.*"
+	},
+	"suggest": {
+		"staccato/listable-doctrine": "Allows adjust doctrine repositories to be compatible to listable component repository"
+	},
+	"autoload": {
+		"psr-4": {
+			"Staccato\\Bundle\\ListableBundle\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Staccato\\Bundle\\ListableBundle\\Tests\\": "tests/"
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0.x-dev"
+		}
+	}
+}

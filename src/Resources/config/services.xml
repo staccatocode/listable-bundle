@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="staccato_listable.list_request" class="Staccato\Component\Listable\ListRequest" />
+
+        <service id="staccato_listable.list" class="Staccato\Bundle\ListableBundle\Service\ListableService">
+            <argument type="service" id="staccato_listable.repository_factory" />
+            <argument type="service" id="staccato_listable.list_request" />
+            <argument type="service" id="request_stack" />
+            <argument>%staccato_listable.config%</argument>
+        </service>
+
+        <service id="staccato_listable.repository_factory" class="Staccato\Component\Listable\Repository\RepositoryFactory">
+            <configurator service="staccato_listable.repository_factory.configurator" method="configure" />
+        </service>
+
+        <service id="staccato_listable.repository_factory.configurator" 
+                 class="Staccato\Bundle\ListableBundle\Configurator\RepositoryFactoryConfigurator" public="false">
+    		<argument type="service" id="service_container" />
+    		<argument>%staccato_listable.config%</argument>
+        </service>
+
+        <service id="staccato_listable.repository_factory.class"
+                 class="Staccato\Component\Listable\Repository\ClassRepositoryFactory" />
+
+        <service id="staccato_listable.repository_factory.doctrine" 
+                 class="Staccato\Component\Listable\Doctrine\Repository\ListableRepositoryFactory">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+    </services>
+</container>
