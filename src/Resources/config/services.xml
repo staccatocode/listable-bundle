@@ -14,22 +14,12 @@
             <argument>%staccato_listable.config%</argument>
         </service>
 
-        <service id="staccato_listable.repository_factory" class="Staccato\Component\Listable\Repository\RepositoryFactory">
-            <configurator service="staccato_listable.repository_factory.configurator" method="configure" />
-        </service>
+        <service id="staccato_listable.repository_factory" class="Staccato\Component\Listable\Repository\RepositoryFactory" />
 
         <service id="staccato_listable.repository_factory.configurator" 
                  class="Staccato\Bundle\ListableBundle\Configurator\RepositoryFactoryConfigurator" public="false">
     		<argument type="service" id="service_container" />
     		<argument>%staccato_listable.config%</argument>
-        </service>
-
-        <service id="staccato_listable.repository_factory.class"
-                 class="Staccato\Component\Listable\Repository\ClassRepositoryFactory" />
-
-        <service id="staccato_listable.repository_factory.doctrine" 
-                 class="Staccato\Component\Listable\Doctrine\Repository\ListableRepositoryFactory">
-            <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
     </services>
 </container>
