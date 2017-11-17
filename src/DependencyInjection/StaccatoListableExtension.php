@@ -28,21 +28,43 @@ class StaccatoListableExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
-        foreach (array('services', 'factories') as $file) {
+        foreach (array('services', 'factories', 'listeners') as $file) {
             $loader->load($file.'.xml');
         }
 
+        $this->configureFactories($config, $container);
+        $this->configureListeners($config, $container);
+        $this->configureParameters($config, $container);
+        $this->configureAliases($config, $container);
+    }
+
+    private function configureFactories(array &$config, ContainerBuilder $container): void
+    {
         $doctrineRepositoryFactoryName = 'staccato_listable.repository_factory.doctrine';
         $doctrineRepositoryFactoryDefition = $container->getDefinition($doctrineRepositoryFactoryName);
 
         if (!class_exists($doctrineRepositoryFactoryDefition->getClass())) {
             $container->removeDefinition($doctrineRepositoryFactoryName);
         }
+    }
 
-        // Set parameters
+    private function configureListeners(array &$config, ContainerBuilder $container): void
+    {
+        $listenerSessionFiltersName = 'staccato_listable.event_listener.session_filters';
+        $listenerSessionFiltersDefition = $container->getDefinition($listenerSessionFiltersName);
+
+        if (!$config['listener']['session_filters']['enabled']) {
+            $container->removeDefinition($listenerSessionFiltersName);
+        }
+    }
+
+    private function configureParameters(array &$config, ContainerBuilder $container): void
+    {
         $container->setParameter('staccato_listable.config', $config);
+    }
 
-        // Set aliases
+    private function configureAliases(array &$config, ContainerBuilder $container): void
+    {
         $container->setAlias('st.list', 'staccato_listable.list');
     }
 }

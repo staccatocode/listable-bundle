@@ -26,9 +26,32 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('staccato_listable');
 
         $this->addBuilderSection($rootNode);
+        $this->addListenerSection($rootNode);
         $this->addRepositorySection($rootNode);
 
         return $treeBuilder;
+    }
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
+    private function addListenerSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('listener')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('session_filters')
+                            ->children()
+                                ->booleanNode('enabled')
+                                    ->defaultTrue()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
     }
 
     /**
