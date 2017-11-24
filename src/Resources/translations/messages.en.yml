@@ -1,0 +1,9 @@
+staccato:
+    listable:
+        filters:
+            buttons:
+                apply: Apply
+                clear: Clear
+
+        table:
+            no_results: 'No results.'

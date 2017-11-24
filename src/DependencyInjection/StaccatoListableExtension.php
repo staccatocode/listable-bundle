@@ -28,7 +28,7 @@ class StaccatoListableExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
-        foreach (array('services', 'factories', 'listeners') as $file) {
+        foreach (array('services', 'factories', 'listeners', 'helpers', 'twig') as $file) {
             $loader->load($file.'.xml');
         }
 

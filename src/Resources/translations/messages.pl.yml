@@ -1,0 +1,9 @@
+staccato:
+    listable:
+        filters:
+            buttons:
+                apply: Zastosuj
+                clear: Wyczyść
+
+        table:
+            no_results: 'Brak wyników.'
