@@ -1,0 +1,21 @@
+{% block staccato_listable_box %}
+{% spaceless %}
+{% if list.vars.data|length > 0 %}
+<div class="{{ class }}">
+    {% for index, data in list %}
+        {{ block('staccato_listable_box_element') }}
+    {% endfor %}
+</div>
+{% else %}
+    {{ block('staccato_listable_box_no_results') }}
+{% endif %}
+{% endspaceless %}
+{% endblock %}
+
+{% block staccato_listable_box_element %}
+<div>{{ 'box ' ~ index }}</div>
+{% endblock %}
+
+{% block staccato_listable_box_no_results %}
+<div>{{ 'staccato.listable.table.no_results'|trans }}</div>
+{% endblock %}

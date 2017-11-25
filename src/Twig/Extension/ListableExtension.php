@@ -23,6 +23,7 @@ class ListableExtension extends AbstractExtension
     public function getFunctions()
     {
         return array(
+            new TwigFunction('listable_box', null, array('node_class' => ListableNode::class), array('is_safe' => array('html'))),
             new TwigFunction('listable_table', null, array('node_class' => ListableNode::class), array('is_safe' => array('html'))),
             new TwigFunction('listable_pagination', null, array('node_class' => ListableNode::class), array('is_safe' => array('html'))),
             new TwigFunction('listable_filters', null, array('node_class' => ListableNode::class), array('is_safe' => array('html'))),

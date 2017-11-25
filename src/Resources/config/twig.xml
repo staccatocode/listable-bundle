@@ -26,6 +26,13 @@
             <tag name="twig.runtime" />
         </service>
 
+        <service id="staccato_listable.twig.renderer.box" 
+                 class="Staccato\Bundle\ListableBundle\Twig\Renderer\BoxBlockRenderer" public="false">
+            <argument>%staccato_listable.config%</argument>
+
+            <tag name="twig.runtime" />
+        </service>
+
         <service id="staccato_listable.twig.renderer.pagination" 
                  class="Staccato\Bundle\ListableBundle\Twig\Renderer\PaginationBlockRenderer" public="false">
             <argument>%staccato_listable.config%</argument>
