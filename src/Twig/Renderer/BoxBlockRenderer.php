@@ -36,7 +36,11 @@ class BoxBlockRenderer extends ListableBlockRenderer
      */
     public function processOptions(array $options): ListableBlockRenderer
     {
-        $this->context = array_merge($this->context, $options);
+        $defaultValues = $this->config->get('twig', array());
+        $defaultValues = isset($defaultValues['listable_box']['default_values']) ?
+            $defaultValues['listable_box']['default_values'] : array();
+
+        $this->context = array_merge($this->context, $defaultValues, $options);
 
         $options = new ParameterBag($options);
 
@@ -47,6 +51,8 @@ class BoxBlockRenderer extends ListableBlockRenderer
 
     private function processOtherOptions(ParameterBag $options)
     {
-        $this->context['class'] = $options->get('class', '');
+        if ($options->has('class')) {
+            $this->context['class'] = $options->get('class');
+        }
     }
 }

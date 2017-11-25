@@ -13,7 +13,9 @@
 {% endblock %}
 
 {% block staccato_listable_box_element %}
-<div>{{ 'box ' ~ index }}</div>
+<div class="col-md-3 col-sm-12">
+    <div class="card">{{ 'box ' ~ index }}</div>
+</div>
 {% endblock %}
 
 {% block staccato_listable_box_no_results %}

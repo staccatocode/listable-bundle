@@ -28,6 +28,7 @@ class Configuration implements ConfigurationInterface
         $this->addBuilderSection($rootNode);
         $this->addListenerSection($rootNode);
         $this->addRepositorySection($rootNode);
+        $this->addTwigSection($rootNode);
 
         return $treeBuilder;
     }
@@ -93,6 +94,57 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('default_values')
                             ->useAttributeAsKey('name')
                             ->prototype('scalar')->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
+    private function addTwigSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('twig')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('listable_box')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->arrayNode('default_values')
+                                    ->useAttributeAsKey('name')
+                                    ->prototype('variable')->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('listable_table')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->arrayNode('default_values')
+                                    ->useAttributeAsKey('name')
+                                    ->prototype('variable')->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('listable_filters')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->arrayNode('default_values')
+                                    ->useAttributeAsKey('name')
+                                    ->prototype('variable')->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('listable_pagination')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->arrayNode('default_values')
+                                    ->useAttributeAsKey('name')
+                                    ->prototype('variable')->end()
+                                ->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()

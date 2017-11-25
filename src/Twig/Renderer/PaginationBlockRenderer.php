@@ -37,12 +37,15 @@ class PaginationBlockRenderer extends ListableBlockRenderer
      */
     public function processOptions(array $options): ListableBlockRenderer
     {
-        $this->context = array_merge($this->context, $options);
+        $defaultValues = $this->config->get('twig', array());
+        $defaultValues = isset($defaultValues['listable_pagination']['default_values']) ?
+            $defaultValues['listable_pagination']['default_values'] : array();
+
+        $this->context = array_merge($this->context, $defaultValues, $options);
 
         $options = new ParameterBag($options);
 
-        $this->context['sides'] = $options->getInt('sides', 2);
-        $this->context['class'] = $options->get('class', 'pagination pagination-sm justify-content-center');
+        $this->processOtherOptions($options);
 
         return $this;
     }
@@ -61,5 +64,16 @@ class PaginationBlockRenderer extends ListableBlockRenderer
 
         $this->context['pagination'] = $pagination;
         $this->context['pages'] = range($from, $to);
+    }
+
+    private function processOtherOptions(ParameterBag $options): void
+    {
+        if ($options->has('sides')) {
+            $this->context['sides'] = $options->getInt('sides');
+        }
+
+        if ($options->has('class')) {
+            $this->context['class'] = $options->get('class');
+        }
     }
 }

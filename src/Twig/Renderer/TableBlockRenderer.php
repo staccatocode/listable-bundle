@@ -36,7 +36,11 @@ class TableBlockRenderer extends ListableBlockRenderer
      */
     public function processOptions(array $options): ListableBlockRenderer
     {
-        $this->context = array_merge($this->context, $options);
+        $defaultValues = $this->config->get('twig', array());
+        $defaultValues = isset($defaultValues['listable_table']['default_values']) ?
+            $defaultValues['listable_table']['default_values'] : array();
+
+        $this->context = array_merge($this->context, $defaultValues, $options);
 
         $options = new ParameterBag($options);
 
@@ -48,7 +52,9 @@ class TableBlockRenderer extends ListableBlockRenderer
 
     private function processOtherOptions(ParameterBag $options)
     {
-        $this->context['class'] = $options->get('class', 'table table-responsive-sm');
+        if ($options->has('class')) {
+            $this->context['class'] = $options->get('class');
+        }
     }
 
     private function processColumnsOptions(ParameterBag $options)

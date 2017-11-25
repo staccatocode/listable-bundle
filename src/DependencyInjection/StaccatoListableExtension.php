@@ -13,10 +13,11 @@ namespace Staccato\Bundle\ListableBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class StaccatoListableExtension extends Extension
+class StaccatoListableExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritdoc}
@@ -36,6 +37,39 @@ class StaccatoListableExtension extends Extension
         $this->configureListeners($config, $container);
         $this->configureParameters($config, $container);
         $this->configureAliases($config, $container);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function prepend(ContainerBuilder $container): void
+    {
+        $container->prependExtensionConfig($this->getAlias(), array(
+            'twig' => array(
+                'listable_box' => array(
+                    'default_values' => array(
+                        'class' => 'row',
+                    ),
+                ),
+                'listable_table' => array(
+                    'default_values' => array(
+                        'class' => 'table table-responsive-sm',
+                    ),
+                ),
+                'listable_filters' => array(
+                    'default_values' => array(
+                        'class' => 'staccato-filters',
+                        'columns' => 3,
+                    ),
+                ),
+                'listable_pagination' => array(
+                    'default_values' => array(
+                        'class' => 'pagination pagination-sm justify-content-center',
+                        'sides' => 2,
+                    ),
+                ),
+            ),
+        ));
     }
 
     private function configureFactories(array &$config, ContainerBuilder $container): void

@@ -21,7 +21,11 @@ class FiltersBlockRenderer extends ListableBlockRenderer
      */
     public function processOptions(array $options): ListableBlockRenderer
     {
-        $this->context = array_merge($this->context, $options);
+        $defaultValues = $this->config->get('twig', array());
+        $defaultValues = isset($defaultValues['listable_filters']['default_values']) ?
+            $defaultValues['listable_filters']['default_values'] : array();
+
+        $this->context = array_merge($this->context, $defaultValues, $options);
 
         $options = new ParameterBag($options);
 
@@ -88,9 +92,15 @@ class FiltersBlockRenderer extends ListableBlockRenderer
 
     private function processOtherOptions(ParameterBag $options)
     {
-        $this->context['columns'] = $options->getInt('columns', 3);
+        if ($options->has('class')) {
+            $this->context['class'] = $options->get('class');
+        }
+
+        if ($options->has('columns')) {
+            $this->context['columns'] = $options->getInt('columns');
+        }
+
         $this->context['columns'] = max(1, min(12, $this->context['columns']));
-        $this->context['class'] = $options->get('class', 'staccato-filters');
         $this->context['method'] = $options->get('method', null);
     }
 
