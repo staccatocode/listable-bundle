@@ -15,11 +15,5 @@
         </service>
 
         <service id="staccato_listable.repository_factory" class="Staccato\Component\Listable\Repository\RepositoryFactory" />
-
-        <service id="staccato_listable.repository_factory.configurator" 
-                 class="Staccato\Bundle\ListableBundle\Configurator\RepositoryFactoryConfigurator" public="false">
-    		<argument type="service" id="service_container" />
-    		<argument>%staccato_listable.config%</argument>
-        </service>
     </services>
 </container>
