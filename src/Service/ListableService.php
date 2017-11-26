@@ -38,15 +38,10 @@ class ListableService
      */
     private $config;
 
-    public function __construct(RepositoryFactory $repositoryFactory, ListRequestInterface $listRequest, RequestStack $requestStack, array $config)
+    public function __construct(RepositoryFactory $repositoryFactory, ListRequestInterface $listRequest, array $config)
     {
         $this->repositoryFactory = $repositoryFactory;
         $this->listRequest = $listRequest;
-
-        if ($this->listRequest instanceof ListRequest) {
-            $this->listRequest->request = $requestStack->getMasterRequest();
-        }
-
         $this->config = new ParameterBag($config);
     }
 

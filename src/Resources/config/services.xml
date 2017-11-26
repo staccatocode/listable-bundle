@@ -10,7 +10,6 @@
         <service id="staccato_listable.list" class="Staccato\Bundle\ListableBundle\Service\ListableService">
             <argument type="service" id="staccato_listable.repository_factory" />
             <argument type="service" id="staccato_listable.list_request" />
-            <argument type="service" id="request_stack" />
             <argument>%staccato_listable.config%</argument>
         </service>
 
