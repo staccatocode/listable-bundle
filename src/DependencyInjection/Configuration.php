@@ -44,6 +44,7 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->arrayNode('session_filters')
+                            ->addDefaultsIfNotSet()
                             ->children()
                                 ->booleanNode('enabled')
                                     ->defaultTrue()

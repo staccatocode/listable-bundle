@@ -11,10 +11,14 @@
 	],
 	"require": {
 		"php": ">=7.1",
-		"staccato/listable": "1.0.*"
+		"staccato/listable": "dev-master",
+		"symfony/config": "^3.1",
+		"symfony/dependency-injection": "^3.1",
+		"symfony/http-kernel": "^3.1",
+		"twig/twig": "^1.0||^2.0"
 	},
-	"suggest": {
-		"staccato/listable-doctrine": "Allows adjust doctrine repositories to be compatible to listable component repository"
+	"require-dev": {
+		"symfony/yaml": "^3.1"
 	},
 	"autoload": {
 		"psr-4": {

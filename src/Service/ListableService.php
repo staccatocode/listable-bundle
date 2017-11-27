@@ -13,13 +13,11 @@ namespace Staccato\Bundle\ListableBundle\Service;
 
 use Staccato\Component\Listable\ListBuilder;
 use Staccato\Component\Listable\ListBuilderInterface;
-use Staccato\Component\Listable\ListRequest;
 use Staccato\Component\Listable\ListRequestInterface;
 use Staccato\Component\Listable\Repository\AbstractRepository;
 use Staccato\Component\Listable\Repository\Exception\InvalidRepositoryFactoryException;
 use Staccato\Component\Listable\Repository\RepositoryFactory;
 use Symfony\Component\HttpFoundation\ParameterBag;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class ListableService
 {

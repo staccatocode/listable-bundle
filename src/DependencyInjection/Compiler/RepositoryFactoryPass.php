@@ -24,20 +24,18 @@ class RepositoryFactoryPass implements CompilerPassInterface
     {
         $repositoryFactoryId = 'staccato_listable.repository_factory';
 
-        if (!$container->has($repositoryFactoryId)) {
-            return;
-        }
+        if ($container->has($repositoryFactoryId)) {
+            $repositoryFactoryDefinition = $container->findDefinition($repositoryFactoryId);
+            $repositoryFactoriesTags = $container->findTaggedServiceIds('staccato_listable.repository_factory');
 
-        $repositoryFactoryDefinition = $container->findDefinition($repositoryFactoryId);
-        $repositoryFactoriesTags = $container->findTaggedServiceIds('staccato_listable.repository_factory');
+            foreach ($repositoryFactoriesTags as $id => $tags) {
+                foreach ($tags as $tag) {
+                    if (!isset($tag['alias'])) {
+                        continue;
+                    }
 
-        foreach ($repositoryFactoriesTags as $id => $tags) {
-            foreach ($tags as $tag) {
-                if (!isset($tag['alias'])) {
-                    continue;
+                    $repositoryFactoryDefinition->addMethodCall('add', array($tag['alias'], new Reference($id)));
                 }
-
-                $repositoryFactoryDefinition->addMethodCall('add', array($tag['alias'], new Reference($id)));
             }
         }
     }

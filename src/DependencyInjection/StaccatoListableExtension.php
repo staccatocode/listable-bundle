@@ -87,7 +87,10 @@ class StaccatoListableExtension extends Extension implements PrependExtensionInt
         $listenerSessionFiltersName = 'staccato_listable.event_listener.session_filters';
         $listenerSessionFiltersDefition = $container->getDefinition($listenerSessionFiltersName);
 
-        if (!$config['listener']['session_filters']['enabled']) {
+        $listenerSessionEnabled = isset($config['listener']['session_filters']['enabled']) &&
+            $config['listener']['session_filters']['enabled'];
+
+        if (!$listenerSessionEnabled) {
             $container->removeDefinition($listenerSessionFiltersName);
         }
     }
