@@ -12,13 +12,13 @@
 	"require": {
 		"php": ">=7.1",
 		"staccato/listable": "dev-master",
-		"symfony/config": "^3.1",
-		"symfony/dependency-injection": "^3.1",
-		"symfony/http-kernel": "^3.1",
+		"symfony/config": "^3.1||^4.0",
+		"symfony/dependency-injection": "^3.1||^4.0",
+		"symfony/http-kernel": "^3.1||^4.0",
 		"twig/twig": "^1.0||^2.0"
 	},
 	"require-dev": {
-		"symfony/yaml": "^3.1"
+		"symfony/yaml": "^3.1||^4.0"
 	},
 	"autoload": {
 		"psr-4": {
