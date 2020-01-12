@@ -1,0 +1,47 @@
+language: php
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+php:
+  - 7.1
+  - 7.2
+  - 7.3
+  - 7.4
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.1
+      env: SYMFONY_VERSION="^4.2"
+    - php: 7.1
+      env: SYMFONY_VERSION="^4.4"
+    - php: 7.2
+      env: SYMFONY_VERSION="^4.2"
+    - php: 7.2
+      env: COMPOSER_FLAGS="--prefer-lowest"
+    - php: 7.3
+      env: SYMFONY_VERSION=^4.4
+    - php: 7.4
+      env: SYMFONY_VERSION=^4.4
+    - php: 7.4
+      env: DEPENDENCIES=dev
+    - php: nightly
+      env: COMPOSER_FLAGS="--ignore-platform-reqs"
+  allow_failures:
+    - php: nightly
+    - env: DEPENDENCIES=dev
+
+before_install:
+  - if [ "$DEPENDENCIES" != "" ]; then composer config minimum-stability ${DEPENDENCIES}; fi;
+  - if [ "$SYMFONY_VERSION" != "" ]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update; fi;
+
+before_script:
+  - set -eo pipefail
+  - composer update --no-interaction --no-progress $COMPOSER_FLAGS
+
+script:
+  - ./vendor/bin/phpunit -v --coverage-text --coverage-clover=coverage.clover
