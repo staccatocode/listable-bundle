@@ -1,6 +1,6 @@
 {
 	"name": "staccato/listable-bundle",
-	"description": "Symfony integrtion bundle for staccato component",
+	"description": "Symfony integration bundle for staccato component",
 	"type": "symfony-bundle",
 	"license": "MIT",
 	"authors": [
@@ -11,14 +11,16 @@
 	],
 	"require": {
 		"php": ">=7.1",
-		"staccato/listable": "dev-master",
-		"symfony/config": "^3.1||^4.0",
-		"symfony/dependency-injection": "^3.1||^4.0",
-		"symfony/http-kernel": "^3.1||^4.0",
-		"twig/twig": "^1.0||^2.0"
+		"staccato/listable": "^1.0-dev",
+		"symfony/config": "^4.0|^5.0",
+		"symfony/dependency-injection": "^4.0|^5.0",
+		"symfony/http-kernel": "^4.0|^5.0"
 	},
 	"require-dev": {
-		"symfony/yaml": "^3.1||^4.0"
+		"phpunit/phpunit": "^7.5|^8.5",
+		"symfony/var-dumper": "^4.0|^5.0",
+		"friendsofphp/php-cs-fixer": "^2.16",
+		"phpstan/phpstan": "^0.12.3"
 	},
 	"autoload": {
 		"psr-4": {
