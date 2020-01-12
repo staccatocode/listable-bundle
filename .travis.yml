@@ -19,14 +19,16 @@ matrix:
       env: SYMFONY_VERSION="^4.2"
     - php: 7.1
       env: SYMFONY_VERSION="^4.4"
+    - php: 7.1
+      env: COMPOSER_FLAGS="--prefer-lowest"
     - php: 7.2
       env: SYMFONY_VERSION="^4.2"
     - php: 7.2
-      env: COMPOSER_FLAGS="--prefer-lowest"
+      env: SYMFONY_VERSION="^4.4"
     - php: 7.3
-      env: SYMFONY_VERSION=^4.4
+      env: SYMFONY_VERSION="^4.4"
     - php: 7.4
-      env: SYMFONY_VERSION=^4.4
+      env: SYMFONY_VERSION="^4.4"
     - php: 7.4
       env: DEPENDENCIES=dev
     - php: nightly
@@ -34,6 +36,8 @@ matrix:
   allow_failures:
     - php: nightly
     - env: DEPENDENCIES=dev
+    - php: 7.1
+      env: COMPOSER_FLAGS="--prefer-lowest"
 
 before_install:
   - if [ "$DEPENDENCIES" != "" ]; then composer config minimum-stability ${DEPENDENCIES}; fi;
