@@ -11,7 +11,7 @@
 
 namespace Staccato\Bundle\ListableBundle;
 
-use Staccato\Bundle\ListableBundle\DependencyInjection\Compiler\RepositoryFactoryPass;
+use Staccato\Bundle\ListableBundle\DependencyInjection\Compiler\ListRegistryPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -22,6 +22,6 @@ class StaccatoListableBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
-        $container->addCompilerPass(new RepositoryFactoryPass());
+        $container->addCompilerPass(new ListRegistryPass());
     }
 }

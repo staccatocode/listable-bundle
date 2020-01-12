@@ -5,14 +5,42 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="staccato_listable.list_request" class="Staccato\Component\Listable\ListRequest" />
+        <!-- Service definitions -->
+        <service id="Staccato\Component\Listable\ListStateProvider" autowire="true" />
 
-        <service id="staccato_listable.list" class="Staccato\Bundle\ListableBundle\Service\ListableService">
-            <argument type="service" id="staccato_listable.repository_factory" />
-            <argument type="service" id="staccato_listable.list_request" />
-            <argument>%staccato_listable.config%</argument>
+        <service id="Staccato\Component\Listable\ListRegistryInterface"
+                 class="Staccato\Component\Listable\ListRegistry">
+            <argument type="collection">
+                <argument key="Staccato\Component\Listable\Field\AbstractField"
+                          type="tagged_locator" tag="staccato_listable.field" index-by="key" />
+                <argument key="Staccato\Component\Listable\Filter\AbstractFilter"
+                          type="tagged_locator" tag="staccato_listable.filter" index-by="key" />
+                <argument key="Staccato\Component\Listable\Repository\AbstractRepository"
+                          type="tagged_locator" tag="staccato_listable.repository" index-by="key" />
+                <argument key="Staccato\Component\Listable\ListStateProviderInterface"
+                          type="tagged_locator" tag="staccato_listable.state_provider" index-by="key" />
+            </argument>
         </service>
 
-        <service id="staccato_listable.repository_factory" class="Staccato\Component\Listable\Repository\RepositoryFactory" />
+        <service id="Staccato\Component\Listable\ListFactoryInterface"
+                 class="Staccato\Bundle\ListableBundle\Factory\ListFactory" autowire="true" public="true">
+            <argument key="$config">%staccato_listable.config%</argument>
+        </service>
+
+        <service id="Staccato\Component\Listable\ListRequestInterface"
+                 class="Staccato\Bundle\ListableBundle\Service\ListRequest" autowire="true" />
+
+        <!-- Aliases definitions -->
+        <service id="staccato_listable.default.state_provider"
+                 alias="Staccato\Component\Listable\ListStateProvider" />
+
+        <service id="staccato_listable.default.registry"
+                 alias="Staccato\Component\Listable\ListRegistryInterface" />
+
+        <service id="staccato_listable.default.request"
+                 alias="Staccato\Component\Listable\ListRequestInterface" />
+
+        <service id="staccato_listable.default.factory"
+                 alias="Staccato\Component\Listable\ListFactoryInterface" />
     </services>
 </container>

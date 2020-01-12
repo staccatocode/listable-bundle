@@ -28,11 +28,6 @@ class UrlModifier
     /**
      * Get current request URI and modify
      * query string parameters.
-     *
-     * @param array $mergeParams
-     * @param array $removeParams
-     *
-     * @return string
      */
     public function modifyQueryString(array $mergeParams, array $removeParams): string
     {
