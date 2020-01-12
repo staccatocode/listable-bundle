@@ -60,11 +60,11 @@ class UrlModifierTest extends TestCase
 
         $request->query
             ->method('all')
-            ->willReturn(array('param1' => 'original', 'param2' => 'original'));
+            ->willReturn(['param1' => 'original', 'param2' => 'original']);
 
         $this->assertEquals('http://example.com/test?param1=original&param2=original',
-            $urlModifier->modifyQueryString(array(), array()));
+            $urlModifier->modifyQueryString([], []));
         $this->assertEquals('http://example.com/test?param2=changed&param3=test',
-            $urlModifier->modifyQueryString(array('param2' => 'changed', 'param3' => 'test'), array('param1')));
+            $urlModifier->modifyQueryString(['param2' => 'changed', 'param3' => 'test'], ['param1']));
     }
 }
