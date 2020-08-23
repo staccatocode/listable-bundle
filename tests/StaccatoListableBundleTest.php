@@ -25,7 +25,10 @@ class StaccatoListableBundleTest extends TestCase
      */
     public function testBuild()
     {
-        $configuration = $this->getMockBuilder(ContainerBuilder::class)->getMock();
+        $configuration = $this->getMockBuilder(ContainerBuilder::class)
+            ->setMethods(['addCompilerPass'])
+            ->getMock();
+
         $configuration
             ->expects($this->once())
             ->method('addCompilerPass');
